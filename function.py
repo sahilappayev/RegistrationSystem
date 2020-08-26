@@ -5,34 +5,45 @@ from db import database
 # Input functions
 
 def textInput(arg):
-    return input(f"Enter {arg}: ").strip()
-
+    i = input(f"Enter {arg}: ").strip()
+    if len(i) == 0:
+        print(f"{arg.capitalize()} bosh ola bilmez!")
+    else:
+        return i
 
 def numberInput(arg):
     number = input(f"Enter {arg}: ").strip()
-    if number.isdigit():
-        return number
+    if len(number) == 0:
+        print(f"{arg.capitalize()} bosh ola bilmez!")
     else:
-        print("Wrong input!")
+        if number.isdigit():
+            return number
+        else:
+            print("Wrong input!")
 
 
 # Main functions
 
-def getDataFromUser():
+def addUser():
     name = textInput("name")
-    surname = textInput("surname")
-    age = numberInput("age")
-    username = textInput("username")
-    password = textInput("password")
-    return [name, surname, age, username, password]
 
+    surname = None
+    if name:
+        surname = textInput("surname")
 
-def createUserObj():
-    return User(*getDataFromUser())
+    age = None
+    if surname:
+        age = numberInput("age")
 
-
-def addUserToDb():
-    database.append(createUserObj())
+    username = None
+    if age:
+        username = textInput("username")
+    password = None
+    if username:
+        password = textInput("password")
+    if name and surname and age and username and password:
+        obj =  User(name, surname, age, username, password)
+        database.append(obj)
 
 
 def showAllUsers():
@@ -75,13 +86,9 @@ def showTheLongestNameUser():
         print("There is no user in the system!")
     else:
         longestName = ""
-        names = []
         for user in database:
-            names.append(user.name)
-
-        for name in names:
-            if len(name) > len(longestName):
-                longestName = name
+            if len(user.name) > len(longestName):
+                longestName = user.name
 
         showUserByName(longestName)
 
