@@ -7,7 +7,7 @@ from db import database
 def textInput(arg):
     i = input(f"Enter {arg}: ").strip()
     if len(i) == 0:
-        print(f"{arg.capitalize()} bosh ola bilmez!")
+        print(f"The {arg} cannot be empty!")
     else:
         return i
 
@@ -25,11 +25,11 @@ def numberInput(arg):
 # Main functions
 
 def addUser():
-    name = textInput("name")
+    name = textInput("name").capitalize()
 
     surname = None
     if name:
-        surname = textInput("surname")
+        surname = textInput("surname").capitalize()
 
     age = None
     if surname:
@@ -136,7 +136,7 @@ def showMenu():
     if m == 1:
         login()
     elif m == 2:
-        addUserToDb()
+        addUser()
     elif m == 3:
         showAllUsers()
     elif m == 4:
