@@ -21,8 +21,12 @@ def addUserToDb(user):
 
 def readDb():
     with open("database.json", "r", encoding="utf-8") as file:
-        users = json.load(file)
-    return users
+        if bool(file.read()):
+            file.seek(0)
+            users = json.load(file)
+        else:
+            users = []
+    return  users
 
 def writeDb(users):
     with open("database.json", "w", encoding="utf-8") as file:
