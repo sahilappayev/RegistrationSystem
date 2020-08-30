@@ -86,32 +86,24 @@ def showAllUsers():
 
 
 def showUserByName(username):
-    ceck = False
+    check = True
 
     for user in db.readDb():
         if str(user["username"]).lower() == username.lower():
-            ceck = True
-
-    if ceck:
-        for user in db.readDb():
-            if str(user["username"]).lower() == username.lower():
-                printUserJson(user)
-    else:
+            printUserJson(user)
+            check = False
+    if check:
         print(f"Not found user by '{username}' username in system")
 
 
 def findUserByUserNo(userno):
-    ceck = False
+    check = True
 
     for user in db.readDb():
         if user["userno"] == userno:
-            ceck = True
-
-    if ceck:
-        for user in db.readDb():
-            if user["userno"] == userno:
-                return user
-    else:
+            check = False
+            return user
+    if check:
         print(f"Not found user by {userno} user number in the system.")
         None
 
@@ -166,16 +158,16 @@ def showTheLongThan8PassUser():
 
 def menu():
     menu = input("""
-    _______________________________________________________________________________________
-        1. Add user
-        2. Show all users
-        3. Show user by user no
-        4. Show user who has the longest username
-        5. Shwo users whom password length more than eight
-        6. Delete user by user no
-        7. Exit
-    _______________________________________________________________________________________
-    """).strip()
+_______________________________________________________________________________________
+|    1. Add user                                                                       |
+|    2. Show all users                                                                 |
+|    3. Show user by user no                                                           |
+|    4. Show user who has the longest username                                         |
+|    5. Shwo users whom password length more than eight                                |
+|    6. Delete user by user no                                                         |
+|    7. Exit                                                                           |
+|______________________________________________________________________________________|
+>>""").strip()
     if menu.isdigit() and 0 < int(menu) < 8:
         return int(menu)
     else:
